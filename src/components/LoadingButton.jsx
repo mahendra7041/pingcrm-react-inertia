@@ -6,7 +6,7 @@ export default function LoadingButton({
   children,
   ...rest
 }) {
-  const className = cx(
+  const classNames = cx(
     "flex items-center",
     "focus:outline-none",
     {
@@ -16,7 +16,7 @@ export default function LoadingButton({
   );
 
   return (
-    <button disabled={loading} className={className} {...rest}>
+    <button disabled={loading} className={classNames} {...rest}>
       {loading && <div className="mr-2 btn-spinner" />}
       {children}
     </button>

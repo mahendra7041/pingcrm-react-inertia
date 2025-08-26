@@ -1,4 +1,4 @@
-import MainMenuItem from "@/Components/Menu/MainMenuItem";
+import MainMenuItem from "@/components/MainMenuItem";
 import { Building, CircleGauge, Printer, Users } from "lucide-react";
 
 export default function MainMenu(props) {

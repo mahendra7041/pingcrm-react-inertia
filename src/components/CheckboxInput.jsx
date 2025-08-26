@@ -1,6 +1,4 @@
-import React from "react";
-
-export function CheckboxInput({ name, label, ...rest }) {
+export default function CheckboxInput({ name, label, ...rest }) {
   return (
     <label className="flex items-center select-none" htmlFor={name}>
       <input

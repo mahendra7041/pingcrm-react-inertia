@@ -1,6 +1,4 @@
-import classNames from "classnames";
-
-export function DeleteButton({ onDelete, children, ...rest }) {
+export default function DeleteButton({ onDelete, children, ...rest }) {
   return (
     <button
       type="button"

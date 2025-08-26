@@ -1,5 +1,5 @@
 import { Check, CircleX, TriangleAlert } from "lucide-react";
-import { CloseButton } from "@/Components/Button/CloseButton";
+import CloseButton from "@/components/CloseButton";
 import classNames from "classnames";
 
 const VARIANTS = {

@@ -1,6 +1,12 @@
 import cx from "classnames";
 
-export function SelectInput({ name, error, options = [], className, ...rest }) {
+export default function SelectInput({
+  name,
+  error,
+  options = [],
+  className,
+  ...rest
+}) {
   const selectClass = cx(
     "form-select w-full focus:outline-none focus:ring-1 focus:ring-indigo-400 focus:border-indigo-400 border-gray-300 rounded",
     {

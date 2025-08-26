@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import { ChevronDown } from "lucide-react";
 
-export function BottomHeader() {
+export default function BottomHeader() {
   const auth = usePage().props.auth;
   const [menuOpened, setMenuOpened] = useState(false);
 

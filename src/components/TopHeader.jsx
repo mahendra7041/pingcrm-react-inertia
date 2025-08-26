@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
-import Logo from "@/Components/Logo/Logo";
-import MainMenu from "@/Components/Menu/MainMenu";
+import Logo from "@/components/Logo";
+import MainMenu from "@/components/MainMenu";
 import { Menu } from "lucide-react";
 
 export default function TopHeader() {

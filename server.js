@@ -1,3 +1,4 @@
+import router from "app/router";
 import express from "express";
 import { inertiaMiddleware } from "express-inertia";
 import { createServer } from "vite";
@@ -39,9 +40,7 @@ async function bootstrap() {
 
   app.use(inertiaMiddleware(config, vite));
 
-  app.get("/", (req, res) => {
-    res.inertia.render("home");
-  });
+  app.use(router);
 
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);

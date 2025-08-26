@@ -1,8 +1,8 @@
 import { Head } from "@inertiajs/react";
-import MainMenu from "@/Components/Menu/MainMenu";
-import FlashMessages from "@/Components/Messages/FlashMessages";
-import TopHeader from "@/Components/Header/TopHeader";
-import BottomHeader from "@/Components/Header/BottomHeader";
+import MainMenu from "@/components/MainMenu";
+import FlashMessages from "@/components/FlashMessages";
+import TopHeader from "@/components/TopHeader";
+import BottomHeader from "@/components/BottomHeader";
 
 export default function MainLayout({ title, children }) {
   return (
