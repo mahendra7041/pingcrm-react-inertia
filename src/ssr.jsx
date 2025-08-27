@@ -6,6 +6,7 @@ const appName = import.meta.env.VITE_APP_NAME || "React Inertia App";
 
 export default function render(page) {
   return createInertiaApp({
+    id: "root",
     title: (title) => `${title} - ${appName}`,
     page,
     render: ReactDOMServer.renderToString,
