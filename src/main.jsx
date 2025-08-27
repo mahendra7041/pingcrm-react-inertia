@@ -1,9 +1,15 @@
 import { createInertiaApp } from "@inertiajs/react";
-import { createRoot } from "react-dom/client";
+import { hydrateRoot } from "react-dom/client";
 import "./index.css";
+
+const appName = import.meta.env.VITE_APP_NAME || "React Inertia App";
 
 createInertiaApp({
   id: "root",
+  progress: {
+    color: "#F87415",
+  },
+  title: (title) => `${title} - ${appName}`,
   resolve: (name) => {
     const pages = import.meta.glob("./pages/**/*.jsx", { eager: true });
     const page = pages[`./pages/${name}.jsx`];
@@ -15,6 +21,6 @@ createInertiaApp({
     return page;
   },
   setup({ el, App, props }) {
-    createRoot(el).render(<App {...props} />);
+    hydrateRoot(el, <App {...props} />);
   },
 });
