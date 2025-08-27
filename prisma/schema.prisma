@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model PersonalAccessToken {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  tokenableId   String    @db.ObjectId
+  tokenableType String
+  name          String
+  token         String    @unique
+  abilities     String?
+  lastUsedAt    DateTime?
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model PasswordResetToken {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String
+  token     String
+  createdAt DateTime?
+}
+
+model FailedJob {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  uuid       String   @unique
+  connection String
+  queue      String
+  payload    String
+  exception  String
+  failedAt   DateTime @default(now())
+}
+
+model Account {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users         User[]
+  organizations Organization[]
+  contacts      Contact[]
+}
+
+model User {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  accountId       String    @db.ObjectId
+  firstName       String
+  lastName        String
+  email           String    @unique
+  emailVerifiedAt DateTime?
+  password        String?
+  owner           Boolean   @default(false)
+  photo           String?
+  rememberToken   String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+
+  account Account @relation(fields: [accountId], references: [id])
+}
+
+model Organization {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  accountId  String    @db.ObjectId
+  name       String
+  email      String?
+  phone      String?
+  address    String?
+  city       String?
+  region     String?
+  country    String?
+  postalCode String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+
+  account  Account   @relation(fields: [accountId], references: [id])
+  contacts Contact[]
+}
+
+model Contact {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  accountId      String    @db.ObjectId
+  organizationId String?   @db.ObjectId
+  firstName      String
+  lastName       String
+  email          String?
+  phone          String?
+  address        String?
+  city           String?
+  region         String?
+  country        String?
+  postalCode     String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+
+  account      Account       @relation(fields: [accountId], references: [id])
+  organization Organization? @relation(fields: [organizationId], references: [id])
+}
