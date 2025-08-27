@@ -17,6 +17,7 @@
     "classnames": "^2.5.1",
     "express": "^5.1.0",
     "express-inertia": "github:mahendra7041/express-inertia",
+    "express-session": "^1.18.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.542.0",
     "react": "^19.1.1",

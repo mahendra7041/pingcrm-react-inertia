@@ -1,29 +1,29 @@
 import express from "express";
-import { inertiaMiddleware } from "express-inertia";
-import { createServer as createViteServer } from "vite";
-import inertiaConfig from "./configs/inertia.config.js";
+import inertia from "express-inertia";
+import session from "express-session";
 import router from "./app/router.js";
-import viteConfig from "./configs/vite.config.js";
 
 async function bootstrap() {
   const app = express();
   const PORT = process.env.PORT || 5000;
-  let vite;
-
-  if (process.env.NODE_ENV === "production") {
-    app.use(
-      express.static("build/client", {
-        index: false,
-      })
-    );
-  } else {
-    vite = await createViteServer(viteConfig);
-    app.use(vite.middlewares);
-  }
 
   app.use(express.static("public"));
   app.use(express.json());
-  app.use(inertiaMiddleware(inertiaConfig, vite));
+  app.use(
+    session({
+      secret: "secret",
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
+  app.use(
+    await inertia({
+      rootElementId: "root",
+      ssrEnabled: true,
+      ssrEntrypoint: "src/ssr.jsx",
+      ssrBuildEntrypoint: "build/ssr/ssr.jsx",
+    })
+  );
 
   app.use(router);
 
