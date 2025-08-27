@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
-import { usePage, router } from "@inertiajs/react";
-import { usePrevious } from "react-use";
+import { router } from "@inertiajs/react";
 import SelectInput from "@/components/SelectInput";
 import pickBy from "lodash/pickBy";
 import { ChevronDown } from "lucide-react";
 import FieldGroup from "@/components/FieldGroup";
 import TextInput from "@/components/TextInput";
+import usePrevious from "@/hooks/usePrevious";
 
-export default function FilterBar() {
-  const filters = usePage().props.filters || {};
-
+export default function FilterBar({ filters = {} }) {
   const [opened, setOpened] = useState(false);
 
   const [values, setValues] = useState({

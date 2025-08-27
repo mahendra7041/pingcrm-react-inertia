@@ -14,7 +14,7 @@ export default function LoginPage() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    post(route("login.store"));
+    post("login");
   }
 
   return (

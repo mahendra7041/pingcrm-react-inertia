@@ -1,7 +1,9 @@
-import router from "app/router";
 import express from "express";
 import { inertiaMiddleware } from "express-inertia";
-import { createServer } from "vite";
+import { createServer as createViteServer } from "vite";
+import inertiaConfig from "./configs/inertia.config.js";
+import router from "./app/router.js";
+import viteConfig from "./configs/vite.config.js";
 
 async function bootstrap() {
   const app = express();
@@ -15,30 +17,13 @@ async function bootstrap() {
       })
     );
   } else {
-    vite = await createServer({
-      server: { middlewareMode: true },
-      appType: "custom",
-    });
-
+    vite = await createViteServer(viteConfig);
     app.use(vite.middlewares);
   }
 
   app.use(express.static("public"));
-
-  const config = {
-    rootElementId: "root",
-    encryptHistory: true,
-    client: {
-      entrypoint: "index.html",
-      bundle: "build/client/index.html",
-    },
-    ssr: {
-      entrypoint: "src/ssr.jsx",
-      bundle: "build/ssr/ssr.js",
-    },
-  };
-
-  app.use(inertiaMiddleware(config, vite));
+  app.use(express.json());
+  app.use(inertiaMiddleware(inertiaConfig, vite));
 
   app.use(router);
 
