@@ -7,7 +7,7 @@ export function fileSize(size) {
   );
 }
 
-export function metaToLinks(meta, baseUrl = "/organizations") {
+export function metaToLinks(meta, baseUrl = "/") {
   const links = [];
 
   // Previous

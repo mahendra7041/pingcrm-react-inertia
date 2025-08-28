@@ -1,34 +1,34 @@
 import { Link, useForm } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import LoadingButton from "@/Components/LoadingButton";
-import TextInput from "@/Components/TextInput";
-import SelectInput from "@/Components/SelectInput";
-import FieldGroup from "@/Components/FieldGroup";
+import MainLayout from "@/layouts/MainLayout";
+import LoadingButton from "@/components/LoadingButton";
+import TextInput from "@/components/TextInput";
+import SelectInput from "@/components/SelectInput";
+import FieldGroup from "@/components/FieldGroup";
 
 function Create({ organizations }) {
   const { data, setData, errors, post, processing } = useForm({
-    first_name: "",
-    last_name: "",
-    organization_id: "",
+    firstName: "",
+    lastName: "",
+    organizationId: "",
     email: "",
     phone: "",
     address: "",
     city: "",
     region: "",
     country: "",
-    postal_code: "",
+    postalCode: "",
   });
 
   function handleSubmit(e) {
     e.preventDefault();
-    post(route("contacts.store"));
+    post(`/contacts`);
   }
 
   return (
     <div>
       <h1 className="mb-8 text-3xl font-bold">
         <Link
-          href={route("contacts")}
+          href={"/contacts"}
           className="text-indigo-600 hover:text-indigo-700"
         >
           Contacts
@@ -40,44 +40,47 @@ function Create({ organizations }) {
           <div className="grid gap-8 p-8 lg:grid-cols-2">
             <FieldGroup
               label="First Name"
-              name="first_name"
-              error={errors.first_name}
+              name="firstName"
+              error={errors.firstName}
             >
               <TextInput
-                name="first_name"
-                error={errors.first_name}
-                value={data.first_name}
-                onChange={(e) => setData("first_name", e.target.value)}
+                name="firstName"
+                error={errors.firstName}
+                value={data.firstName}
+                onChange={(e) => setData("firstName", e.target.value)}
               />
             </FieldGroup>
 
             <FieldGroup
               label="Last Name"
-              name="last_name"
-              error={errors.last_name}
+              name="lastName"
+              error={errors.lastName}
             >
               <TextInput
-                name="last_name"
-                error={errors.last_name}
-                value={data.last_name}
-                onChange={(e) => setData("last_name", e.target.value)}
+                name="lastName"
+                error={errors.lastName}
+                value={data.lastName}
+                onChange={(e) => setData("lastName", e.target.value)}
               />
             </FieldGroup>
 
             <FieldGroup
               label="Organization"
-              name="organization_id"
-              error={errors.organization_id}
+              name="organizationJd"
+              error={errors.organizationId}
             >
               <SelectInput
-                name="organization_id"
-                error={errors.organization_id}
-                value={data.organization_id}
-                onChange={(e) => setData("organization_id", e.target.value)}
-                options={organizations?.map(({ id, name }) => ({
-                  value: String(id),
-                  label: name,
-                }))}
+                name="organizationId"
+                error={errors.organizationId}
+                value={data.organizationId}
+                onChange={(e) => setData("organizationId", e.target.value)}
+                options={[
+                  { value: "", label: "" },
+                  ...organizations?.map(({ id, name }) => ({
+                    value: id,
+                    label: name,
+                  })),
+                ]}
               />
             </FieldGroup>
 
@@ -134,6 +137,7 @@ function Create({ organizations }) {
                 value={data.country}
                 onChange={(e) => setData("country", e.target.value)}
                 options={[
+                  { value: "", label: "" },
                   { value: "CA", label: "Canada" },
                   { value: "US", label: "United States" },
                 ]}
@@ -142,14 +146,14 @@ function Create({ organizations }) {
 
             <FieldGroup
               label="Postal Code"
-              name="postal_code"
-              error={errors.postal_code}
+              name="postalCode"
+              error={errors.postalCode}
             >
               <TextInput
-                name="postal_code"
-                error={errors.postal_code}
-                value={data.postal_code}
-                onChange={(e) => setData("postal_code", e.target.value)}
+                name="postalCode"
+                error={errors.postalCode}
+                value={data.postalCode}
+                onChange={(e) => setData("postalCode", e.target.value)}
               />
             </FieldGroup>
           </div>

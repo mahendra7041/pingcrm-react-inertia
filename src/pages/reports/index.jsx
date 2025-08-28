@@ -1,4 +1,4 @@
-import MainLayout from "@/Layouts/MainLayout";
+import MainLayout from "@/layouts/MainLayout";
 
 function ReportsPage() {
   return (
