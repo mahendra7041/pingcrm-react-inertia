@@ -3,6 +3,7 @@ import * as authController from "./controllers/auth.controller.js";
 import * as dashboardController from "./controllers/dashboard.controller.js";
 import * as organizationController from "./controllers/organization.controller.js";
 import * as contactController from "./controllers/contact.controller.js";
+import * as reportController from "./controllers/report.controller.js";
 import * as errorController from "./controllers/error.controller.js";
 import authMiddleware from "./middlewares/auth.middleware.js";
 
@@ -41,6 +42,8 @@ router.get("/contacts/:id/edit", authMiddleware, contactController.edit);
 router.put("/contacts/:id", authMiddleware, contactController.update);
 router.delete("/contacts/:id", authMiddleware, contactController.destroy);
 router.put("/contacts/:id/restore", authMiddleware, contactController.restore);
+
+router.get("/reports", authMiddleware, reportController.index);
 
 router.get("/login", authController.index);
 router.post("/login", authController.store);
