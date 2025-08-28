@@ -1,15 +1,30 @@
 import { Router } from "express";
 import * as authController from "./controllers/auth.controller.js";
+import * as userController from "./controllers/user.controller.js";
 import * as dashboardController from "./controllers/dashboard.controller.js";
 import * as organizationController from "./controllers/organization.controller.js";
 import * as contactController from "./controllers/contact.controller.js";
 import * as reportController from "./controllers/report.controller.js";
 import * as errorController from "./controllers/error.controller.js";
 import authMiddleware from "./middlewares/auth.middleware.js";
+import { upload } from "./utils/multer.js";
 
 const router = new Router();
 
 router.get("/", authMiddleware, dashboardController.index);
+
+router.get("/users", authMiddleware, userController.index);
+router.get("/users/create", authMiddleware, userController.create);
+router.post(
+  "/users",
+  authMiddleware,
+  upload.single("photo"),
+  userController.store
+);
+router.get("/users/:id/edit", authMiddleware, userController.edit);
+router.put("/users/:id", authMiddleware, userController.update);
+router.delete("/users/:id", authMiddleware, userController.destroy);
+router.put("/users/:id/restore", authMiddleware, userController.restore);
 
 router.get("/organizations", authMiddleware, organizationController.index);
 router.get(
@@ -47,7 +62,8 @@ router.get("/reports", authMiddleware, reportController.index);
 
 router.get("/login", authController.index);
 router.post("/login", authController.store);
+router.delete("/logout", authController.logout);
 
-router.get("*all", errorController.notFound);
+// router.get("*all", errorController.notFound);
 
 export default router;

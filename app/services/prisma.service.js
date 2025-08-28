@@ -8,6 +8,14 @@ const paginator = createPaginator();
 const extendedPrisma = prisma
   .$extends({
     result: {
+      user: {
+        name: {
+          needs: { firstName: true, lastName: true },
+          compute(user) {
+            return `${user.firstName} ${user.lastName}`;
+          },
+        },
+      },
       contact: {
         name: {
           needs: { firstName: true, lastName: true },
@@ -20,6 +28,9 @@ const extendedPrisma = prisma
   })
   .$extends({
     model: {
+      user: {
+        paginate: paginator,
+      },
       organization: {
         paginate: paginator,
       },

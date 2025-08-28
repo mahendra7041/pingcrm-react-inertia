@@ -13,6 +13,7 @@ export async function userFactory(count = 1, overrides = {}) {
       lastName: overrides.lastName || faker.person.lastName(),
       email: overrides.email || faker.internet.email(),
       password: hashedPassword,
+      deletedAt: null,
       ...overrides,
     });
   }

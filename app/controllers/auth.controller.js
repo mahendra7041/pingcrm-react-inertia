@@ -30,3 +30,10 @@ export function store(req, res, next) {
     });
   })(req, res, next);
 }
+
+export function logout(req, res, next) {
+  req.logout(() => {
+    req.session.destroy(function () {});
+  });
+  res.inertia.redirect("/login");
+}

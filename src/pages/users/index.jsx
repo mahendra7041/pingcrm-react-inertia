@@ -1,15 +1,13 @@
 import { Link } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import FilterBar from "@/Components/FilterBar";
-import Pagination from "@/Components/Pagination";
-import Table from "@/Components/Table";
+import MainLayout from "@/layouts/MainLayout";
+import FilterBar from "@/components/FilterBar";
+import Pagination from "@/components/Pagination";
+import Table from "@/components/Table";
 import { Trash2 } from "lucide-react";
+import { metaToLinks } from "@/utils";
 
 function Index({ users }) {
-  const {
-    data,
-    meta: { links },
-  } = users;
+  const { data, meta } = users;
 
   return (
     <div>
@@ -17,10 +15,7 @@ function Index({ users }) {
 
       <div className="flex items-center justify-between mb-6">
         <FilterBar />
-        <Link
-          className="btn-indigo focus:outline-none"
-          href={route("users.create")}
-        >
+        <Link className="btn-indigo focus:outline-none" href={`/users/create`}>
           <span>Create</span>
           <span className="hidden md:inline"> User</span>
         </Link>
@@ -41,7 +36,7 @@ function Index({ users }) {
                   />
                 )}
                 <span>{row.name}</span>
-                {row.deleted_at && (
+                {row.deletedAt && (
                   <Trash2 size={16} className="ml-2 text-gray-400" />
                 )}
               </div>
@@ -56,10 +51,10 @@ function Index({ users }) {
           },
         ]}
         rows={data}
-        getRowDetailsUrl={(row) => route("users.edit", row.id)}
+        getRowDetailsUrl={(row) => `/users/${row.id}/edit`}
       />
 
-      <Pagination links={links} />
+      <Pagination links={metaToLinks(meta, "/users")} />
     </div>
   );
 }

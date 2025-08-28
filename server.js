@@ -9,13 +9,15 @@ import shareUser from "./app/middlewares/share-user.middleware.js";
 import ValidationException from "./app/exceptions/validation.exception.js";
 import UnAuthorizedException from "./app/exceptions/unauthorized.exception.js";
 import HttpException from "./app/exceptions/http.exception.js";
+import path from "path";
 
 async function bootstrap() {
   const app = express();
   const PORT = process.env.PORT || 5000;
 
-  app.use(express.static("public"));
+  // app.use(express.static(path.resolve("public")));
   app.use(express.json());
+  app.use("/uploads", express.static("uploads"));
   app.use(session(sessionConfig));
   app.use(await inertia(inertiaConfig));
   app.use(passport.initialize());

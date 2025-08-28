@@ -5,22 +5,11 @@ import prisma from "../services/prisma.service.js";
 import { excludeFields } from "./helper.js";
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await prisma.user.findUniqueOrThrow({
-      where: { id },
-      include: {
-        account: true,
-      },
-    });
-
-    return done(null, excludeFields(user, ["password", "remember_token"]));
-  } catch (error) {
-    done(error, null);
-  }
+passport.deserializeUser((user, done) => {
+  done(null, user);
 });
 
 passport.use(
@@ -31,7 +20,12 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await prisma.user.findUnique({
+          where: { email, deletedAt: null },
+          include: {
+            account: true,
+          },
+        });
 
         if (!user) {
           return done(null, false, { message: "User not found" });

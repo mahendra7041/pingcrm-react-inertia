@@ -23,14 +23,6 @@ function DashboardPage() {
         </a>
         .
       </p>
-      <div>
-        <Link className="mr-1 btn-indigo" href="/500">
-          500 error
-        </Link>
-        <Link className="btn-indigo" href="/404">
-          404 error
-        </Link>
-      </div>
     </div>
   );
 }

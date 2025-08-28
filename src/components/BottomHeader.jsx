@@ -27,7 +27,7 @@ export default function BottomHeader() {
         <div className={menuOpened ? "" : "hidden"}>
           <div className="absolute top-0 right-0 left-auto z-20 py-2 mt-8 text-sm whitespace-nowrap bg-white rounded shadow-xl">
             <Link
-              href={`/users/edit/${auth.user.id}`}
+              href={`/users/${auth.user.id}/edit`}
               className="block px-6 py-2 hover:bg-indigo-600 hover:text-white"
               onClick={() => setMenuOpened(false)}
             >

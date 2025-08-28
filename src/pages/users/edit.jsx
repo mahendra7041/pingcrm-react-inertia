@@ -1,38 +1,37 @@
 import { Link, useForm, router } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import DeleteButton from "@/Components/DeleteButton";
-import LoadingButton from "@/Components/LoadingButton";
-import TextInput from "@/Components/TextInput";
-import SelectInput from "@/Components/SelectInput";
-import FileInput from "@/Components/FileInput";
-import TrashedMessage from "@/Components/TrashedMessage";
-import FieldGroup from "@/Components/FieldGroup";
+import MainLayout from "@/layouts/MainLayout";
+import DeleteButton from "@/components/DeleteButton";
+import LoadingButton from "@/components/LoadingButton";
+import TextInput from "@/components/TextInput";
+import SelectInput from "@/components/SelectInput";
+import FileInput from "@/components/FileInput";
+import TrashedMessage from "@/components/TrashedMessage";
+import FieldGroup from "@/components/FieldGroup";
 
 function Edit({ user }) {
-  const { data, setData, errors, post, processing } = useForm({
-    first_name: user.first_name || "",
-    last_name: user.last_name || "",
+  const { data, setData, errors, put, processing } = useForm({
+    firstName: user.firstName || "",
+    lastName: user.lastName || "",
     email: user.email || "",
-    password: user.password || "",
+    password: "",
     owner: user.owner ? "1" : "0",
     photo: "",
-    _method: "put", // Simulate PUT request with POST
   });
 
   function handleSubmit(e) {
     e.preventDefault();
-    post(route("users.update", user.id));
+    put(`/users/${user.id}`);
   }
 
   function destroy() {
     if (confirm("Are you sure you want to delete this user?")) {
-      router.delete(route("users.destroy", user.id));
+      router.delete(`/users/${user.id}`);
     }
   }
 
   function restore() {
     if (confirm("Are you sure you want to restore this user?")) {
-      router.put(route("users.restore", user.id));
+      router.put(`/users/${user.id}/restore`);
     }
   }
 
@@ -41,20 +40,20 @@ function Edit({ user }) {
       <div className="flex justify-start max-w-lg mb-8">
         <h1 className="text-3xl font-bold">
           <Link
-            href={route("users")}
+            href={`/users`}
             className="text-indigo-600 hover:text-indigo-700"
           >
             Users
           </Link>
           <span className="mx-2 font-medium text-indigo-600">/</span>
-          {data.first_name} {data.last_name}
+          {data.firstName} {data.lastName}
         </h1>
         {user.photo && (
           <img className="block w-8 h-8 ml-4 rounded-full" src={user.photo} />
         )}
       </div>
 
-      {user.deleted_at && (
+      {user.deletedAt && (
         <TrashedMessage
           message="This user has been deleted."
           onRestore={restore}
@@ -66,27 +65,27 @@ function Edit({ user }) {
           <div className="grid gap-8 p-8 lg:grid-cols-2">
             <FieldGroup
               label="First Name"
-              name="first_name"
-              error={errors.first_name}
+              name="firstName"
+              error={errors.firstName}
             >
               <TextInput
-                name="first_name"
-                error={errors.first_name}
-                value={data.first_name}
-                onChange={(e) => setData("first_name", e.target.value)}
+                name="firstName"
+                error={errors.firstName}
+                value={data.firstName}
+                onChange={(e) => setData("firstName", e.target.value)}
               />
             </FieldGroup>
 
             <FieldGroup
               label="Last Name"
-              name="last_name"
-              error={errors.last_name}
+              name="lastName"
+              error={errors.lastName}
             >
               <TextInput
-                name="last_name"
-                error={errors.last_name}
-                value={data.last_name}
-                onChange={(e) => setData("last_name", e.target.value)}
+                name="lastName"
+                error={errors.lastName}
+                value={data.lastName}
+                onChange={(e) => setData("lastName", e.target.value)}
               />
             </FieldGroup>
 
@@ -139,7 +138,7 @@ function Edit({ user }) {
           </div>
 
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            {!user.deleted_at && (
+            {!user.deletedAt && (
               <DeleteButton onDelete={destroy}>Delete User</DeleteButton>
             )}
             <LoadingButton

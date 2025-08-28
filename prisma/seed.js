@@ -23,16 +23,17 @@ async function main() {
 
   await prisma.user.create({
     data: {
-      account: {
-        connect: {
-          id: account.id,
-        },
-      },
       firstName: "John",
       lastName: "doe",
       email: "johndoe@example.com",
       owner: true,
       password,
+      deletedAt: null,
+      account: {
+        connect: {
+          id: account.id,
+        },
+      },
     },
   });
 
