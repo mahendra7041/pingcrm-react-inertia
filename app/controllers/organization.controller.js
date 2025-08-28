@@ -117,7 +117,7 @@ export async function update(req, res, next) {
     data: body,
   });
 
-  req.flash.set("success", "Organization created.");
+  req.flash.set("success", "Organization updated.");
   res.statusCode === 302;
   res.inertia.redirect("/organizations");
 }
