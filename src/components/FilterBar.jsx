@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import SelectInput from "@/components/SelectInput";
-import pickBy from "lodash/pickBy";
 import { ChevronDown } from "lucide-react";
 import FieldGroup from "@/components/FieldGroup";
 import TextInput from "@/components/TextInput";
@@ -9,6 +8,8 @@ import usePrevious from "@/hooks/usePrevious";
 
 export default function FilterBar({ filters = {} }) {
   const [opened, setOpened] = useState(false);
+  const page = usePage();
+  const url = page.url.split("?")[0];
 
   const [values, setValues] = useState({
     role: filters.role || "",
@@ -24,12 +25,22 @@ export default function FilterBar({ filters = {} }) {
       search: "",
       trashed: "",
     });
+    router.get(
+      url,
+      {},
+      {
+        replace: true,
+        preserveState: true,
+      }
+    );
   }
 
   useEffect(() => {
     if (prevValues) {
-      const query = Object.keys(pickBy(values)).length ? pickBy(values) : {};
-      router.get(route(route().current()), query, {
+      const cleaned = Object.fromEntries(
+        Object.entries(values).filter(([_, value]) => Boolean(value))
+      );
+      router.get(url, cleaned, {
         replace: true,
         preserveState: true,
       });

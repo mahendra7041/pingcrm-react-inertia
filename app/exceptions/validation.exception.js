@@ -23,8 +23,9 @@ export default class ValidationException extends Error {
   static handler(error, req, res, next) {
     if (error instanceof ValidationException) {
       if (req.get("x-inertia")) {
+        const previousUrl = req.get("Referer") || req.url;
         req.flash.set("errors", error.errors);
-        return res.inertia.redirect(req.url);
+        return res.inertia.redirect(previousUrl);
       }
       return res.status(422).json(error.response);
     }

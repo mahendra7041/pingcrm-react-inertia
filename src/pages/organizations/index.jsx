@@ -4,12 +4,10 @@ import FilterBar from "@/Components/FilterBar";
 import Pagination from "@/Components/Pagination";
 import Table from "@/Components/Table";
 import { Trash2 } from "lucide-react";
+import { metaToLinks } from "@/utils";
 
 function Index({ organizations }) {
-  const {
-    data,
-    meta: { links },
-  } = organizations;
+  const { data, meta } = organizations;
 
   return (
     <div>
@@ -19,7 +17,7 @@ function Index({ organizations }) {
         <FilterBar />
         <Link
           className="btn-indigo focus:outline-none"
-          href={route("organizations.create")}
+          href={"/organizations/create"}
         >
           <span>Create</span>
           <span className="hidden md:inline"> Organization</span>
@@ -44,10 +42,10 @@ function Index({ organizations }) {
           { label: "Phone", name: "phone", colSpan: 2 },
         ]}
         rows={data}
-        getRowDetailsUrl={(row) => route("organizations.edit", row.id)}
+        getRowDetailsUrl={(row) => `/organizations/${row.id}/edit`}
       />
 
-      <Pagination links={links} />
+      <Pagination links={metaToLinks(meta, "/organizations")} />
     </div>
   );
 }

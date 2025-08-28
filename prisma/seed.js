@@ -45,6 +45,7 @@ async function main() {
   await prisma.organization.createMany({
     data: await organizationFactory(100, {
       accountId: account.id,
+      deletedAt: null,
     }),
   });
 
@@ -53,6 +54,7 @@ async function main() {
     data: await contactFactory(100, {
       accountId: account.id,
       organizationId: getRandomRecord(organizations).id,
+      deletedAt: null,
     }),
   });
 
