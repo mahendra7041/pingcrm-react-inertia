@@ -21,6 +21,16 @@ router.get(
   organizationController.edit
 );
 router.put("/organizations/:id", authMiddleware, organizationController.update);
+router.delete(
+  "/organizations/:id",
+  authMiddleware,
+  organizationController.destroy
+);
+router.put(
+  "/organizations/:id/restore",
+  authMiddleware,
+  organizationController.restore
+);
 
 router.get("/login", authController.index);
 router.post("/login", authController.store);

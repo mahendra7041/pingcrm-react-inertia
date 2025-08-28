@@ -121,3 +121,29 @@ export async function update(req, res, next) {
   res.statusCode === 302;
   res.inertia.redirect("/organizations");
 }
+
+export async function destroy(req, res, next) {
+  await prisma.organization.update({
+    where: {
+      id: req.params.id,
+    },
+    data: {
+      deletedAt: new Date(),
+    },
+  });
+  req.flash.set("success", "Organization deleted.");
+  res.inertia.redirect("/organizations");
+}
+
+export async function restore(req, res, next) {
+  await prisma.organization.update({
+    where: {
+      id: req.params.id,
+    },
+    data: {
+      deletedAt: null,
+    },
+  });
+  req.flash.set("success", "Organization restored.");
+  res.inertia.redirect("/organizations");
+}

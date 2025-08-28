@@ -3,7 +3,7 @@ const sessionConfig = {
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 60000,
+    maxAge: 1000 * 60 * 60 * 24,
     secure: process.env.NODE_ENV === "production",
   },
 };

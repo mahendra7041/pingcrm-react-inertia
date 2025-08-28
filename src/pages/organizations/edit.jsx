@@ -33,7 +33,7 @@ function Edit({ organization }) {
 
   function restore() {
     if (confirm("Are you sure you want to restore this organization?")) {
-      router.put(`/organizations/${organization.id}`);
+      router.put(`/organizations/${organization.id}/restore`);
     }
   }
 
