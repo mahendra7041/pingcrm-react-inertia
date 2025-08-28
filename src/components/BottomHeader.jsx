@@ -15,8 +15,8 @@ export default function BottomHeader() {
           onClick={() => setMenuOpened(true)}
         >
           <div className="mr-1 text-gray-800 whitespace-nowrap group-hover:text-indigo-600 focus:text-indigo-600">
-            <span>{auth.user.first_name}</span>
-            <span className="hidden ml-1 md:inline">{auth.user.last_name}</span>
+            <span>{auth.user.firstName}</span>
+            <span className="hidden ml-1 md:inline">{auth.user.lastName}</span>
           </div>
           <ChevronDown
             size={20}
@@ -27,14 +27,14 @@ export default function BottomHeader() {
         <div className={menuOpened ? "" : "hidden"}>
           <div className="absolute top-0 right-0 left-auto z-20 py-2 mt-8 text-sm whitespace-nowrap bg-white rounded shadow-xl">
             <Link
-              href={route("users.edit", auth.user.id)}
+              href={`/users/edit/${auth.user.id}`}
               className="block px-6 py-2 hover:bg-indigo-600 hover:text-white"
               onClick={() => setMenuOpened(false)}
             >
               My Profile
             </Link>
             <Link
-              href={route("users")}
+              href={"/users"}
               className="block px-6 py-2 hover:bg-indigo-600 hover:text-white"
               onClick={() => setMenuOpened(false)}
             >
@@ -42,7 +42,7 @@ export default function BottomHeader() {
             </Link>
             <Link
               as="button"
-              href={route("logout")}
+              href={"/logout"}
               method="delete"
               className="block w-full px-6 py-2 text-left focus:outline-none hover:bg-indigo-600 hover:text-white"
             >
