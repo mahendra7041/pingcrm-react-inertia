@@ -6,22 +6,22 @@ export default function MainMenu(props) {
     <div {...props}>
       <MainMenuItem
         text="Dashboard"
-        link="dashboard"
+        link="/"
         icon={<CircleGauge size={20} />}
       />
       <MainMenuItem
         text="Organizations"
-        link="organizations"
+        link="/organizations"
         icon={<Building size={20} />}
       />
       <MainMenuItem
         text="Contacts"
-        link="contacts"
+        link="/contacts"
         icon={<Users size={20} />}
       />
       <MainMenuItem
         text="Reports"
-        link="reports"
+        link="/reports"
         icon={<Printer size={20} />}
       />
     </div>

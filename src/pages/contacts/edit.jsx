@@ -1,58 +1,58 @@
 import { Head } from "@inertiajs/react";
 import { Link, useForm, router } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import DeleteButton from "@/Components/DeleteButton";
-import LoadingButton from "@/Components/LoadingButton";
-import TextInput from "@/Components/TextInput";
-import SelectInput from "@/Components/SelectInput";
-import TrashedMessage from "@/Components/TrashedMessage";
-import FieldGroup from "@/Components/FieldGroup";
+import MainLayout from "@/layouts/MainLayout";
+import DeleteButton from "@/components/DeleteButton";
+import LoadingButton from "@/components/LoadingButton";
+import TextInput from "@/components/TextInput";
+import SelectInput from "@/components/SelectInput";
+import TrashedMessage from "@/components/TrashedMessage";
+import FieldGroup from "@/components/FieldGroup";
 
 function Edit({ contact, organizations }) {
   const { data, setData, errors, put, processing } = useForm({
-    first_name: contact.first_name || "",
-    last_name: contact.last_name || "",
-    organization_id: contact.organization_id || "",
+    firstName: contact.firstName || "",
+    lastName: contact.lastName || "",
+    organizationId: contact.organizationId || "",
     email: contact.email || "",
     phone: contact.phone || "",
     address: contact.address || "",
     city: contact.city || "",
     region: contact.region || "",
     country: contact.country || "",
-    postal_code: contact.postal_code || "",
+    postalCode: contact.postalCode || "",
   });
 
   function handleSubmit(e) {
     e.preventDefault();
-    put(route("contacts.update", contact.id));
+    put(`/contacts/${contact.id}`);
   }
 
   function destroy() {
     if (confirm("Are you sure you want to delete this contact?")) {
-      router.delete(route("contacts.destroy", contact.id));
+      router.delete(`/contacts/${contact.id}`);
     }
   }
 
   function restore() {
     if (confirm("Are you sure you want to restore this contact?")) {
-      router.put(route("contacts.restore", contact.id));
+      router.put(`/contacts/${contact.id}/restore`);
     }
   }
 
   return (
     <div>
-      <Head title={`${data.first_name} ${data.last_name}`} />
+      <Head title={`${contact.name}`} />
       <h1 className="mb-8 text-3xl font-bold">
         <Link
-          href={route("contacts")}
+          href={"/contacts"}
           className="text-indigo-600 hover:text-indigo-700"
         >
           Contacts
         </Link>
         <span className="mx-2 font-medium text-indigo-600">/</span>
-        {data.first_name} {data.last_name}
+        {contact.name}
       </h1>
-      {contact.deleted_at && (
+      {contact.deletedAt && (
         <TrashedMessage
           message="This contact has been deleted."
           onRestore={restore}
@@ -63,40 +63,40 @@ function Edit({ contact, organizations }) {
           <div className="grid gap-8 p-8 lg:grid-cols-2">
             <FieldGroup
               label="First Name"
-              name="first_name"
-              error={errors.first_name}
+              name="firstName"
+              error={errors.firstName}
             >
               <TextInput
                 name="first_name"
-                error={errors.first_name}
-                value={data.first_name}
-                onChange={(e) => setData("first_name", e.target.value)}
+                error={errors.firstName}
+                value={data.firstName}
+                onChange={(e) => setData("firstName", e.target.value)}
               />
             </FieldGroup>
 
             <FieldGroup
               label="Last Name"
-              name="last_name"
-              error={errors.last_name}
+              name="lastName"
+              error={errors.lastName}
             >
               <TextInput
-                name="last_name"
-                error={errors.last_name}
-                value={data.last_name}
-                onChange={(e) => setData("last_name", e.target.value)}
+                name="lastName"
+                error={errors.lastName}
+                value={data.lastName}
+                onChange={(e) => setData("lastName", e.target.value)}
               />
             </FieldGroup>
 
             <FieldGroup
               label="Organization"
-              name="organization_id"
-              error={errors.organization_id}
+              name="organizationId"
+              error={errors.organizationId}
             >
               <SelectInput
-                name="organization_id"
-                error={errors.organization_id}
-                value={data.organization_id}
-                onChange={(e) => setData("organization_id", e.target.value)}
+                name="organizationId"
+                error={errors.organizationId}
+                value={data.organizationId}
+                onChange={(e) => setData("organizationId", e.target.value)}
                 options={[
                   { value: "", label: "" },
                   ...organizations.map((org) => ({
@@ -173,19 +173,19 @@ function Edit({ contact, organizations }) {
 
             <FieldGroup
               label="Postal Code"
-              name="postal_code"
-              error={errors.postal_code}
+              name="postalCode"
+              error={errors.postalCode}
             >
               <TextInput
-                name="postal_code"
-                error={errors.postal_code}
-                value={data.postal_code}
-                onChange={(e) => setData("postal_code", e.target.value)}
+                name="postalCode"
+                error={errors.postalCode}
+                value={data.postalCode}
+                onChange={(e) => setData("postalCode", e.target.value)}
               />
             </FieldGroup>
           </div>
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            {!contact.deleted_at && (
+            {!contact.deletedAt && (
               <DeleteButton onDelete={destroy}>Delete Contact</DeleteButton>
             )}
             <LoadingButton

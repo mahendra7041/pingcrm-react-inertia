@@ -68,10 +68,7 @@ export default function LoginPage() {
               </FieldGroup>
             </div>
           </div>
-          <div className="flex items-center justify-between px-10 py-4 bg-gray-100 border-t border-gray-200">
-            <a className="hover:underline" tabIndex={-1} href="#reset-password">
-              Forgot password?
-            </a>
+          <div className="flex items-center justify-end px-10 py-4 bg-gray-100 border-t border-gray-200">
             <LoadingButton
               type="submit"
               loading={processing}

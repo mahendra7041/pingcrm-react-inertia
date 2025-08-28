@@ -17,23 +17,23 @@ function Edit({ organization }) {
     city: organization.city || "",
     region: organization.region || "",
     country: organization.country || "",
-    postal_code: organization.postal_code || "",
+    postalCode: organization.postalCode || "",
   });
 
   function handleSubmit(e) {
     e.preventDefault();
-    put(route("organizations.update", organization.id));
+    put(`/organizations/${organization.id}`);
   }
 
   function destroy() {
     if (confirm("Are you sure you want to delete this organization?")) {
-      router.delete(route("organizations.destroy", organization.id));
+      router.delete(`/organizations/${organization.id}`);
     }
   }
 
   function restore() {
     if (confirm("Are you sure you want to restore this organization?")) {
-      router.put(route("organizations.restore", organization.id));
+      router.put(`/organizations/${organization.id}/restore`);
     }
   }
 
@@ -42,7 +42,7 @@ function Edit({ organization }) {
       <Head title={data.name} />
       <h1 className="mb-8 text-3xl font-bold">
         <Link
-          href={route("organizations")}
+          href={"/organizations"}
           className="text-indigo-600 hover:text-indigo-700"
         >
           Organizations
@@ -51,7 +51,7 @@ function Edit({ organization }) {
         {data.name}
       </h1>
 
-      {organization.deleted_at && (
+      {organization.deletedAt && (
         <TrashedMessage
           message="This organization has been deleted."
           onRestore={restore}
@@ -136,20 +136,20 @@ function Edit({ organization }) {
 
             <FieldGroup
               label="Postal Code"
-              name="postal_code"
-              error={errors.postal_code}
+              name="postalCode"
+              error={errors.postalCode}
             >
               <TextInput
-                name="postal_code"
-                error={errors.postal_code}
-                value={data.postal_code}
-                onChange={(e) => setData("postal_code", e.target.value)}
+                name="postalCode"
+                error={errors.postalCode}
+                value={data.postalCode}
+                onChange={(e) => setData("postalCode", e.target.value)}
               />
             </FieldGroup>
           </div>
 
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            {!organization.deleted_at && (
+            {!organization.deletedAt && (
               <DeleteButton onDelete={destroy}>
                 Delete Organization
               </DeleteButton>
@@ -173,7 +173,7 @@ function Edit({ organization }) {
           { label: "Phone", name: "phone", colSpan: 2 },
         ]}
         rows={organization.contacts}
-        getRowDetailsUrl={(row) => route("contacts.edit", row.id)}
+        getRowDetailsUrl={(row) => `/contacts/${row.id}/edit`}
       />
     </div>
   );

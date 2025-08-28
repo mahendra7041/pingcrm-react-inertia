@@ -1,9 +1,10 @@
 import { Link } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import Pagination from "@/Components/Pagination";
-import FilterBar from "@/Components/FilterBar";
-import Table from "@/Components/Table";
+import MainLayout from "@/layouts/MainLayout";
+import Pagination from "@/components/Pagination";
+import FilterBar from "@/components/FilterBar";
+import Table from "@/components/Table";
 import { Trash2 } from "lucide-react";
+import { metaToLinks } from "@/utils";
 
 function Index({ contacts }) {
   const { data, meta } = contacts;
@@ -16,7 +17,7 @@ function Index({ contacts }) {
         <FilterBar />
         <Link
           className="btn-indigo focus:outline-none"
-          href={route("contacts.create")}
+          href={`/contacts/create`}
         >
           <span>Create</span>
           <span className="hidden md:inline"> Contact</span>
@@ -31,7 +32,7 @@ function Index({ contacts }) {
             renderCell: (row) => (
               <>
                 {row.name}
-                {row.deleted_at && (
+                {row.deletedAt && (
                   <Trash2 size={16} className="ml-2 text-gray-400" />
                 )}
               </>
@@ -42,10 +43,10 @@ function Index({ contacts }) {
           { label: "Phone", name: "phone", colSpan: 2 },
         ]}
         rows={data}
-        getRowDetailsUrl={(row) => route("contacts.edit", row.id)}
+        getRowDetailsUrl={(row) => `/contacts/${row.id}/edit`}
       />
 
-      <Pagination links={meta.links} />
+      <Pagination links={metaToLinks(meta, "/contacts")} />
     </div>
   );
 }

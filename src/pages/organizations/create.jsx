@@ -14,19 +14,19 @@ function Create() {
     city: "",
     region: "",
     country: "",
-    postal_code: "",
+    postalCode: "",
   });
 
   function handleSubmit(e) {
     e.preventDefault();
-    post(route("organizations.store"));
+    post("/organizations");
   }
 
   return (
     <div>
       <h1 className="mb-8 text-3xl font-bold">
         <Link
-          href={route("organizations")}
+          href={"/organizations"}
           className="text-indigo-600 hover:text-indigo-700"
         >
           Organizations
@@ -112,14 +112,14 @@ function Create() {
 
             <FieldGroup
               label="Postal Code"
-              name="postal_code"
-              error={errors.postal_code}
+              name="postalCode"
+              error={errors.postalCode}
             >
               <TextInput
-                name="postal_code"
-                error={errors.postal_code}
-                value={data.postal_code}
-                onChange={(e) => setData("postal_code", e.target.value)}
+                name="postalCode"
+                error={errors.postalCode}
+                value={data.postalCode}
+                onChange={(e) => setData("postalCode", e.target.value)}
               />
             </FieldGroup>
           </div>

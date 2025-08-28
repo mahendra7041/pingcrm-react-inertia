@@ -1,24 +1,24 @@
 import { Link, useForm } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import LoadingButton from "@/Components/LoadingButton";
-import TextInput from "@/Components/TextInput";
-import SelectInput from "@/Components/SelectInput";
-import FileInput from "@/Components/FileInput";
-import FieldGroup from "@/Components/FieldGroup";
+import MainLayout from "@/layouts/MainLayout";
+import LoadingButton from "@/components/LoadingButton";
+import TextInput from "@/components/TextInput";
+import SelectInput from "@/components/SelectInput";
+import FileInput from "@/components/FileInput";
+import FieldGroup from "@/components/FieldGroup";
 
 function Create() {
   const { data, setData, errors, post, processing } = useForm({
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
-    owner: "0",
+    owner: 0,
     photo: "",
   });
 
   function handleSubmit(e) {
     e.preventDefault();
-    post(route("users.store"));
+    post("/users");
   }
 
   return (
@@ -26,7 +26,7 @@ function Create() {
       <div>
         <h1 className="mb-8 text-3xl font-bold">
           <Link
-            href={route("users")}
+            href={"/users"}
             className="text-indigo-600 hover:text-indigo-700"
           >
             Users
@@ -40,27 +40,27 @@ function Create() {
           <div className="grid gap-8 p-8 lg:grid-cols-2">
             <FieldGroup
               label="First Name"
-              name="first_name"
-              error={errors.first_name}
+              name="firstName"
+              error={errors.firstName}
             >
               <TextInput
-                name="first_name"
-                error={errors.first_name}
-                value={data.first_name}
-                onChange={(e) => setData("first_name", e.target.value)}
+                name="firstName"
+                error={errors.firstName}
+                value={data.firstName}
+                onChange={(e) => setData("firstName", e.target.value)}
               />
             </FieldGroup>
 
             <FieldGroup
               label="Last Name"
-              name="last_name"
-              error={errors.last_name}
+              name="lastName"
+              error={errors.lastName}
             >
               <TextInput
-                name="last_name"
-                error={errors.last_name}
-                value={data.last_name}
-                onChange={(e) => setData("last_name", e.target.value)}
+                name="lastName"
+                error={errors.lastName}
+                value={data.lastName}
+                onChange={(e) => setData("lastName", e.target.value)}
               />
             </FieldGroup>
 
@@ -95,8 +95,8 @@ function Create() {
                 value={data.owner}
                 onChange={(e) => setData("owner", e.target.value)}
                 options={[
-                  { value: "1", label: "Yes" },
-                  { value: "0", label: "No" },
+                  { value: 1, label: "Yes" },
+                  { value: 0, label: "No" },
                 ]}
               />
             </FieldGroup>
