@@ -6,7 +6,8 @@ export default function globalExceptionHandler(error, req, res, next) {
   }
   if (!!req.accepts("html") || req.get("x-inertia")) {
     return res.inertia.render("error", {
-      status: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: "Internal Server Error",
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
     });
   } else if (!!req.accepts("application/json")) {
     return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

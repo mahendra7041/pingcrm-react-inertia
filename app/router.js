@@ -64,6 +64,6 @@ router.get("/login", authController.index);
 router.post("/login", authController.store);
 router.delete("/logout", authController.logout);
 
-// router.get("*all", errorController.notFound);
+router.get("*all", errorController.notFound);
 
 export default router;

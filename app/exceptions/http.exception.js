@@ -8,7 +8,10 @@ export default class HttpException extends Error {
   static handler(error, req, res, next) {
     if (error instanceof HttpException) {
       if (!!req.accepts("html") || req.get("x-inertia")) {
-        return res.inertia.render("error", { status: error.statusCode });
+        return res.inertia.render("error", {
+          message: error.message,
+          statusCode: error.statusCode,
+        });
       } else if (!!req.accepts("application/json")) {
         return res.status(error.statusCode).json({
           message: error.message,

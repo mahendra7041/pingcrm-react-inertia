@@ -1,37 +1,16 @@
-import { Head } from "@inertiajs/react";
-
-export default function ErrorPage({ status }) {
-  const messages = {
-    403: {
-      title: "403: Forbidden",
-      description: "Sorry, you are forbidden from accessing this page.",
-    },
-    404: {
-      title: "404: Page Not Found",
-      description: "Sorry, the page you are looking for could not be found.",
-    },
-    500: {
-      title: "500: Server Error",
-      description: "Whoops, something went wrong on our servers.",
-    },
-    503: {
-      title: "503: Service Unavailable",
-      description:
-        "Sorry, we are doing some maintenance. Please check back soon.",
-    },
-  };
-
-  const { title, description } = messages[status] || {
-    title: `${status}: Error`,
-    description: "An unexpected error occurred.",
-  };
-
+export default function ErrorPage({ statusCode, message }) {
   return (
-    <div className="flex items-center justify-center min-h-screen p-5 text-indigo-100 bg-indigo-800">
-      <Head title={title} />
-      <div className="w-full max-w-md">
-        <h1 className="text-3xl">{title}</h1>
-        <p className="mt-3 text-lg leading-tight">{description}</p>
+    <div className="antialiased relative flex items-top justify-center min-h-screen bg-gray-800 text-gray-200 sm:items-center sm:pt-0">
+      <div className="max-w-xl mx-auto sm:px-6 lg:px-8">
+        <div className="flex items-center pt-8 sm:justify-start sm:pt-0">
+          <div className="px-4 text-lg  border-r border-gray-400 tracking-wider">
+            {statusCode}
+          </div>
+
+          <div className="ml-4 text-lg  uppercase tracking-wider">
+            {message}
+          </div>
+        </div>
       </div>
     </div>
   );

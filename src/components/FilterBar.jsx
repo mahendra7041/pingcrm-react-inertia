@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
 import { router, usePage } from "@inertiajs/react";
-import SelectInput from "@/components/SelectInput";
-import { ChevronDown } from "lucide-react";
-import FieldGroup from "@/components/FieldGroup";
-import TextInput from "@/components/TextInput";
 import usePrevious from "@/hooks/usePrevious";
 
 export default function FilterBar({ filters = {} }) {
@@ -60,67 +56,81 @@ export default function FilterBar({ filters = {} }) {
   }
 
   return (
-    <div className="flex items-center w-full max-w-md mr-4">
-      <div className="relative flex bg-white rounded shadow">
-        <div
-          style={{ top: "100%" }}
-          className={`${opened ? "" : "hidden"} absolute`}
-        >
-          <div
-            onClick={() => setOpened(false)}
-            className="fixed inset-0 z-20 bg-black opacity-25"
-          />
-          <div className="relative z-30 w-64 px-4 py-6 mt-2 bg-white rounded shadow-lg space-y-4">
-            {filters.hasOwnProperty("role") && (
-              <FieldGroup label="Role" name="role">
-                <SelectInput
-                  name="role"
-                  value={values.role}
-                  onChange={handleChange}
-                  options={[
-                    { value: "", label: "" },
-                    { value: "user", label: "User" },
-                    { value: "owner", label: "Owner" },
-                  ]}
-                />
-              </FieldGroup>
-            )}
-            <FieldGroup label="Trashed" name="trashed">
-              <SelectInput
-                name="trashed"
-                value={values.trashed}
-                onChange={handleChange}
-                options={[
-                  { value: "", label: "" },
-                  { value: "with", label: "With Trashed" },
-                  { value: "only", label: "Only Trashed" },
-                ]}
-              />
-            </FieldGroup>
-          </div>
-        </div>
+    <div className="flex items-center mr-4 w-full max-w-md">
+      <div className="relative flex w-full bg-white rounded shadow">
         <button
-          onClick={() => setOpened(true)}
-          className="px-4 border-r rounded-l md:px-6 hover:bg-gray-100 focus:outline-none focus:border-white focus:ring-2 focus:ring-indigo-400 focus:z-10"
+          type="button"
+          onClick={() => setOpened(!opened)}
+          className="focus:z-10 px-4 hover:bg-gray-100 border-r focus:border-white rounded-l focus:ring md:px-6"
         >
-          <div className="flex items-center">
+          <div className="flex items-baseline">
             <span className="hidden text-gray-700 md:inline">Filter</span>
-            <ChevronDown size={14} strokeWidth={3} className="md:ml-2" />
+            <svg
+              className="w-2 h-2 fill-gray-700 md:ml-2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 961.243 599.998"
+            >
+              <path d="M239.998 239.999L0 0h961.243L721.246 240c-131.999 132-240.28 240-240.624 239.999-.345-.001-108.625-108.001-240.624-240z" />
+            </svg>
           </div>
         </button>
-        <TextInput
+        {opened && (
+          <div className="absolute top-full left-0 w-64 mt-2 z-30">
+            <div
+              className="fixed inset-0 bg-black opacity-25 z-20"
+              onClick={() => setOpened(false)}
+            />
+            <div className="relative z-30 bg-white rounded shadow-lg px-4 py-6 space-y-4">
+              {filters.hasOwnProperty("role") && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Role
+                  </label>
+                  <select
+                    name="role"
+                    value={values.role}
+                    onChange={handleChange}
+                    className="w-full border rounded px-3 py-2"
+                  >
+                    <option value="">Select Role</option>
+                    <option value="user">User</option>
+                    <option value="owner">Owner</option>
+                  </select>
+                </div>
+              )}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Trashed
+                </label>
+                <select
+                  name="trashed"
+                  value={values.trashed}
+                  onChange={handleChange}
+                  className="w-full border rounded px-3 py-2"
+                >
+                  <option value="">Select Option</option>
+                  <option value="with">With Trashed</option>
+                  <option value="only">Only Trashed</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        )}
+        <input
+          className="relative px-6 py-3 w-full rounded-r focus:shadow-outline"
+          autoComplete="off"
+          type="text"
           name="search"
           placeholder="Search…"
-          autoComplete="off"
           value={values.search}
           onChange={handleChange}
-          className="border-0 rounded-l-none focus:ring-2"
         />
       </div>
+
       <button
-        onClick={reset}
-        className="ml-3 text-sm text-gray-600 hover:text-gray-700 focus:text-indigo-700 focus:outline-none"
+        className="ml-3 text-gray-500 hover:text-gray-700 focus:text-indigo-500 text-sm"
         type="button"
+        onClick={reset}
       >
         Reset
       </button>
