@@ -1,12 +1,12 @@
 import { Head, Link, useForm, router } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import DeleteButton from "@/Components/DeleteButton";
-import LoadingButton from "@/Components/LoadingButton";
-import TextInput from "@/Components/TextInput";
-import SelectInput from "@/Components/SelectInput";
-import TrashedMessage from "@/Components/TrashedMessage";
-import Table from "@/Components/Table";
-import FieldGroup from "@/Components/FieldGroup";
+import MainLayout from "@/layouts/MainLayout";
+import DeleteButton from "@/components/DeleteButton";
+import LoadingButton from "@/components/LoadingButton";
+import TextInput from "@/components/TextInput";
+import SelectInput from "@/components/SelectInput";
+import TrashedMessage from "@/components/TrashedMessage";
+import Table from "@/components/Table";
+import FieldGroup from "@/components/FieldGroup";
 
 function Edit({ organization }) {
   const { data, setData, errors, put, processing } = useForm({

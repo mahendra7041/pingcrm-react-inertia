@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "cross-env NODE_ENV=production node server.js",
+    "postinstall": "prisma generate && npm run build",
     "prisma:seed": "node prisma/seed.js",
     "prisma:truncate": "node prisma/truncate.js --env-file=.env",
     "build": "npm run build:client && npm run build:ssr",
