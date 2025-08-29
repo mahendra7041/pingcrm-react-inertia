@@ -1,7 +1,8 @@
 import { validate } from "../utils/validator.js";
 import prisma from "../services/prisma.service.js";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library.js";
 
-export async function index(req, res, next) {
+export async function index(req, res) {
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 10;
   const search = req.query.search || undefined;
@@ -56,11 +57,11 @@ export async function index(req, res, next) {
   });
 }
 
-export async function create(req, res, next) {
+export async function create(req, res) {
   res.inertia.render("organizations/create");
 }
 
-export async function store(req, res, next) {
+export async function store(req, res) {
   const body = validate(req.body, {
     name: "string|required",
     email: "email|required",
@@ -101,7 +102,7 @@ export async function edit(req, res, next) {
   res.inertia.render("organizations/edit", { organization });
 }
 
-export async function update(req, res, next) {
+export async function update(req, res) {
   const body = validate(req.body, {
     name: "string|required",
     email: "email|required",
@@ -125,7 +126,7 @@ export async function update(req, res, next) {
   res.inertia.redirect("/organizations");
 }
 
-export async function destroy(req, res, next) {
+export async function destroy(req, res) {
   await prisma.organization.update({
     where: {
       id: req.params.id,
@@ -138,7 +139,7 @@ export async function destroy(req, res, next) {
   res.inertia.redirect("/organizations");
 }
 
-export async function restore(req, res, next) {
+export async function restore(req, res) {
   await prisma.organization.update({
     where: {
       id: req.params.id,
