@@ -41,7 +41,7 @@ function PaginationItem({ active, label, url }) {
 
 function PageInactive({ label }) {
   const className = classNames(
-    "mr-1 mb-1 px-4 py-3 text-sm border rounded border-solid border-gray-300 text-gray"
+    "mr-1 mb-1 px-4 py-3 text-sm border rounded border-solid border-gray-300 text-gray bg-white"
   );
 
   return (

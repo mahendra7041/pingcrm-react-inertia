@@ -1,14 +1,28 @@
-import { redisStore } from "../app/utils/redis.js";
+import { RedisStore } from "connect-redis";
+import { createClient } from "redis";
 
 const sessionConfig = {
-  store: redisStore,
   secret: "secret",
   resave: false,
   saveUninitialized: false,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24,
-    secure: false,
+    secure: !!process.env.VERCEL,
   },
 };
+
+if (!process.env.VERCEL) {
+  const redisClient = createClient();
+
+  redisClient.on("error", (err) => console.log("Redis Client Error", err));
+
+  redisClient.connect().then(() => {
+    sessionConfig.store = new RedisStore({
+      client: redisClient,
+      prefix: "session:",
+    });
+    console.log("Redis store attached for session");
+  });
+}
 
 export default sessionConfig;
