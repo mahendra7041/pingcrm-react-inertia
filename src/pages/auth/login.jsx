@@ -9,7 +9,7 @@ export default function LoginPage() {
   const { data, setData, errors, post, processing } = useForm({
     email: "johndoe@example.com",
     password: "secret",
-    remember: true,
+    remember: false,
   });
 
   function handleSubmit(e) {
@@ -18,7 +18,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-6 bg-indigo-900">
+    <div className="flex items-center justify-center min-h-screen p-6 bg-indigo-800">
       <Head title="Login" />
 
       <div className="w-full max-w-md">
@@ -28,12 +28,12 @@ export default function LoginPage() {
         />
         <form
           onSubmit={handleSubmit}
-          className="mt-8 overflow-hidden bg-white rounded-lg shadow-xl"
+          className="mt-8 bg-white rounded-lg shadow-xl overflow-hidden"
         >
           <div className="px-10 py-12">
-            <h1 className="text-3xl font-bold text-center">Welcome Back!</h1>
-            <div className="w-24 mx-auto mt-6 border-b-2" />
-            <div className="grid gap-6">
+            <h1 className="text-center text-3xl font-bold">Welcome Back!</h1>
+            <div className="mt-6 mx-auto w-24 border-b-2" />
+            <div className="mt-10 space-y-6">
               <FieldGroup label="Email" name="email" error={errors.email}>
                 <TextInput
                   name="email"
@@ -68,7 +68,7 @@ export default function LoginPage() {
               </FieldGroup>
             </div>
           </div>
-          <div className="flex items-center justify-end px-10 py-4 bg-gray-100 border-t border-gray-200">
+          <div className="flex items-center justify-end px-10 py-4 bg-gray-100">
             <LoadingButton
               type="submit"
               loading={processing}

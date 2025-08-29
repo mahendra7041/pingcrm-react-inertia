@@ -6,9 +6,6 @@ const appName = import.meta.env.VITE_APP_NAME || "React Inertia App";
 
 createInertiaApp({
   id: "root",
-  progress: {
-    color: "#F87415",
-  },
   title: (title) => `${title} - ${appName}`,
   resolve: (name) => {
     const pages = import.meta.glob("./pages/**/*.jsx", { eager: true });

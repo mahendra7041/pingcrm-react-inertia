@@ -7,7 +7,7 @@ export default function BottomHeader() {
   const [menuOpened, setMenuOpened] = useState(false);
 
   return (
-    <div className="flex items-center justify-between w-full p-4 text-sm bg-white border-b md:py-0 md:px-12 d:text-md">
+    <div className="md:text-md flex items-center justify-between p-4 w-full text-sm bg-white border-b md:px-12 md:py-0">
       <div className="mt-1 mr-4">{auth.user.account.name}</div>
       <div className="relative">
         <div

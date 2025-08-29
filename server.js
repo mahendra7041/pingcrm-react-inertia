@@ -9,13 +9,14 @@ import shareUser from "./app/middlewares/share-user.middleware.js";
 import ValidationException from "./app/exceptions/validation.exception.js";
 import UnAuthorizedException from "./app/exceptions/unauthorized.exception.js";
 import HttpException from "./app/exceptions/http.exception.js";
-import path from "path";
+import globalExceptionHandler from "./app/exceptions/global.exception.js";
+import PrismaException from "./app/exceptions/prisma.exception.js";
 
 async function bootstrap() {
   const app = express();
   const PORT = process.env.PORT || 5000;
 
-  // app.use(express.static(path.resolve("public")));
+  app.use(express.static("public"));
   app.use(express.json());
   app.use("/uploads", express.static("uploads"));
   app.use(session(sessionConfig));
@@ -26,9 +27,11 @@ async function bootstrap() {
 
   app.use(router);
 
+  app.use(PrismaException.handler);
   app.use(ValidationException.handler);
   app.use(UnAuthorizedException.handler);
   app.use(HttpException.handler);
+  app.use(globalExceptionHandler);
 
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
