@@ -94,6 +94,9 @@ export async function edit(req, res, next) {
     where: {
       id: req.params.id,
     },
+    include: {
+      contacts: true,
+    },
   });
   res.inertia.render("organizations/edit", { organization });
 }
