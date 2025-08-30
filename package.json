@@ -10,8 +10,8 @@
     "prisma:seed": "node prisma/seed.js",
     "prisma:truncate": "node prisma/truncate.js --env-file=.env",
     "build": "npm run build:client && npm run build:ssr",
-    "build:client": "vite build --outDir build/client --ssrManifest",
-    "build:ssr": "vite build --outDir build/ssr --ssr src/ssr.jsx",
+    "build:client": "vite build --outDir public",
+    "build:ssr": "vite build --outDir ssr --ssr src/ssr.jsx",
     "lint": "eslint ./src"
   },
   "dependencies": {
@@ -23,7 +23,7 @@
     "classnames": "^2.5.1",
     "connect-redis": "^9.0.0",
     "express": "^5.1.0",
-    "express-inertia": "^1.1.0",
+    "express-inertia": "github:mahendra7041/express-inertia",
     "express-session": "^1.18.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.542.0",
