@@ -11,14 +11,18 @@ import UnAuthorizedException from "./app/exceptions/unauthorized.exception.js";
 import HttpException from "./app/exceptions/http.exception.js";
 import globalExceptionHandler from "./app/exceptions/global.exception.js";
 import PrismaException from "./app/exceptions/prisma.exception.js";
+import path from "path";
+import { fileURLToPath } from "node:url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function bootstrap() {
   const app = express();
   const PORT = process.env.PORT || 5000;
 
-  app.use(express.static("public"));
+  app.use(express.static(path.resolve(__dirname, "public")));
   app.use(express.json());
-  app.use("/uploads", express.static("uploads"));
+  app.use("/uploads", express.static(path.resolve(__dirname, "uploads")));
+  app.set("trust proxy", 1);
   app.use(session(sessionConfig));
   app.use(await inertia(inertiaConfig));
   app.use(passport.initialize());
