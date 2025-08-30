@@ -29,3 +29,6 @@ dist-ssr
 .env
 
 uploads/*
+
+ssr/*
+public/*
