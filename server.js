@@ -19,10 +19,12 @@ async function bootstrap() {
   const app = express();
   const PORT = process.env.PORT || 5000;
 
-  app.use(express.static(path.resolve(__dirname, "public")));
-  app.use(express.json());
-  app.use("/uploads", express.static(path.resolve(__dirname, "uploads")));
   app.set("trust proxy", 1);
+
+  app.use(express.static(path.resolve(__dirname, "public"), { index: false }));
+  app.use("/uploads", express.static(path.resolve(__dirname, "uploads")));
+
+  app.use(express.json());
   app.use(session(sessionConfig));
   app.use(await inertia(inertiaConfig));
   app.use(passport.initialize());
