@@ -14,14 +14,7 @@ function DashboardPage() {
         >
           Inertia.js
         </a>
-        works with
-        <a
-          className="ml-1 text-indigo-600 underline hover:text-orange-500"
-          href="https://reactjs.org/"
-        >
-          React
-        </a>
-        .
+        works.
       </p>
     </div>
   );
