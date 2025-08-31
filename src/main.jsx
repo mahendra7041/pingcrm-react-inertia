@@ -2,7 +2,7 @@ import { createInertiaApp } from "@inertiajs/react";
 import { hydrateRoot } from "react-dom/client";
 import "./index.css";
 
-const appName = import.meta.env.VITE_APP_NAME || "React Inertia App";
+const appName = import.meta.env.VITE_APP_NAME || "PingCRM";
 
 createInertiaApp({
   id: "root",

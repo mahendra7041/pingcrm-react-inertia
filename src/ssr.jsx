@@ -2,7 +2,7 @@ import ReactDOMServer from "react-dom/server";
 import { createInertiaApp } from "@inertiajs/react";
 import "./index.css";
 
-const appName = import.meta.env.VITE_APP_NAME || "React Inertia App";
+const appName = import.meta.env.VITE_APP_NAME || "PingCRM";
 
 export default function render(page) {
   return createInertiaApp({

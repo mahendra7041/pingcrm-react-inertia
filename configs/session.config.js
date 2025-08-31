@@ -7,13 +7,18 @@ const sessionConfig = {
   saveUninitialized: false,
   proxy: true,
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
     secure: !!process.env.VERCEL,
   },
 };
 
 if (!process.env.VERCEL) {
-  const redisClient = createClient();
+  const redisClient = createClient({
+    socket: {
+      host: process.env.REDIS_HOST || "127.0.0.1",
+      port: Number(process.env.REDIS_PORT) || 6379,
+    },
+  });
 
   redisClient.on("error", (err) => console.log("Redis Client Error", err));
 
@@ -22,7 +27,11 @@ if (!process.env.VERCEL) {
       client: redisClient,
       prefix: "session:",
     });
-    console.log("Redis store attached for session");
+    console.log(
+      `Redis store attached for session at ${
+        process.env.REDIS_HOST || "127.0.0.1"
+      }:${process.env.REDIS_PORT || 6379}`
+    );
   });
 }
 
