@@ -21,12 +21,12 @@ export default function TopHeader() {
           className="cursor-pointer"
         />
 
-        <div className={menuOpened ? "" : "hidden" + " absolute right-0 z-20"}>
+        <div
+          className={menuOpened ? "absolute right-0 z-20" : "hidden"}
+          onClick={() => setMenuOpened(false)}
+        >
           <MainMenu className="relative z-20 px-8 py-4 pb-2 mt-2 bg-indigo-800 rounded shadow-lg" />
-          <div
-            onClick={() => setMenuOpened(false)}
-            className="fixed inset-0 z-10 bg-black opacity-25"
-          />
+          <div className="fixed inset-0 z-10 bg-black opacity-25"></div>
         </div>
       </div>
     </div>
