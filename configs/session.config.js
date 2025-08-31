@@ -20,7 +20,10 @@ if (!process.env.VERCEL) {
     },
   });
 
-  redisClient.on("error", (err) => console.log("Redis Client Error", err));
+  redisClient.on("error", (err) => {
+    console.log("Redis Client:", err.message);
+    process.exit(1);
+  });
 
   redisClient.connect().then(() => {
     sessionConfig.store = new RedisStore({
