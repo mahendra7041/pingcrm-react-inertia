@@ -1,6 +1,9 @@
 import { validate } from "../utils/validator.js";
 import prisma from "../services/prisma.service.js";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library.js";
+import {
+  createOrganizationSchema,
+  updateOrganizationSchema,
+} from "../validations/organization.validation.js";
 
 export async function index(req, res) {
   const page = Number(req.query.page) || 1;
@@ -62,16 +65,7 @@ export async function create(req, res) {
 }
 
 export async function store(req, res) {
-  const body = validate(req.body, {
-    name: "string|required",
-    email: "email|required",
-    phone: "phone|required",
-    address: "string|required",
-    city: "string|required",
-    region: "string|required",
-    country: "string|required",
-    postalCode: "string|required",
-  });
+  const body = validate(req.body, createOrganizationSchema);
 
   await prisma.organization.create({
     data: {
@@ -103,16 +97,7 @@ export async function edit(req, res, next) {
 }
 
 export async function update(req, res) {
-  const body = validate(req.body, {
-    name: "string|required",
-    email: "email|required",
-    phone: "phone|required",
-    address: "string|required",
-    city: "string|required",
-    region: "string|required",
-    country: "string|required",
-    postalCode: "string|required",
-  });
+  const body = validate(req.body, updateOrganizationSchema);
 
   await prisma.organization.update({
     where: {

@@ -22,7 +22,12 @@ router.post(
   userController.store
 );
 router.get("/users/:id/edit", authMiddleware, userController.edit);
-router.put("/users/:id", authMiddleware, userController.update);
+router.put(
+  "/users/:id",
+  upload.single("photo"),
+  authMiddleware,
+  userController.update
+);
 router.delete("/users/:id", authMiddleware, userController.destroy);
 router.put("/users/:id/restore", authMiddleware, userController.restore);
 

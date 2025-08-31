@@ -1,17 +1,14 @@
 import { validate } from "../utils/validator.js";
 import passport from "../utils/passport.js";
 import ValidationException from "../exceptions/validation.exception.js";
+import { authSchema } from "../validations/auth.validation.js";
 
 export function index(req, res, next) {
   res.inertia.render("auth/login");
 }
 
 export function store(req, res, next) {
-  validate(req.body, {
-    email: "email|required",
-    password: "string|required",
-    remember: "boolean|required",
-  });
+  validate(req.body, authSchema);
 
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
