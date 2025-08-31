@@ -1,6 +1,6 @@
 # Ping CRM
 
-A demo application to illustrate how Inertia.js works.
+A demo application demonstrating how [Inertia.js](https://inertiajs.com/) integrates with [Express.js](https://expressjs.com/) using the [express-inertia](https://github.com/mahendra7041/express-inertia) middleware/adapter.
 
 ![](https://raw.githubusercontent.com/mahendra7041/pingcrm-react-inertia/master/screenshot.png)
 
