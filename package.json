@@ -1,7 +1,7 @@
 {
   "name": "express-inertia-react",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
@@ -10,8 +10,8 @@
     "prisma:seed": "node prisma/seed.js",
     "prisma:truncate": "node prisma/truncate.js --env-file=.env",
     "build": "npm run build:ssr && npm run build:client",
-    "build:client": "vite build --outDir public --manifest",
-    "build:ssr": "vite build --outDir ssr --ssr src/ssr.jsx",
+    "build:client": "vite build --outDir build/client --manifest",
+    "build:ssr": "vite build --outDir build/ssr --ssr src/ssr.jsx",
     "lint": "eslint ./src"
   },
   "dependencies": {
@@ -23,7 +23,7 @@
     "classnames": "^2.5.1",
     "connect-redis": "^9.0.0",
     "express": "^5.1.0",
-    "express-inertia": "^1.3.1",
+    "express-inertia": "^1.5.0",
     "express-session": "^1.18.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.542.0",

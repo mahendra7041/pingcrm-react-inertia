@@ -21,7 +21,12 @@ async function bootstrap() {
 
   app.set("trust proxy", 1);
 
-  app.use(express.static(path.resolve(__dirname, "public"), { index: false }));
+  if (process.env.NODE_ENV === "production") {
+    app.use(
+      express.static(path.resolve(__dirname, "build/client"), { index: false })
+    );
+  }
+
   app.use("/uploads", express.static(path.resolve(__dirname, "uploads")));
 
   app.use(express.json());

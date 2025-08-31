@@ -2,7 +2,7 @@ import { RedisStore } from "connect-redis";
 import { createClient } from "redis";
 
 const sessionConfig = {
-  secret: "secret",
+  secret: process.env.SESSION_SECRET || "secret",
   resave: false,
   saveUninitialized: false,
   proxy: true,
