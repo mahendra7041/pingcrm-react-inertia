@@ -1,6 +1,9 @@
 import { createInertiaApp } from "@inertiajs/react";
 import { hydrateRoot } from "react-dom/client";
+import { inject } from "@vercel/analytics";
 import "./index.css";
+
+inject();
 
 const appName = import.meta.env.VITE_APP_NAME || "PingCRM";
 

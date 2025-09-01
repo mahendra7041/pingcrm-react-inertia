@@ -19,6 +19,7 @@
     "@inertiajs/react": "^2.1.2",
     "@prisma/client": "^6.14.0",
     "@uidotdev/usehooks": "^2.4.1",
+    "@vercel/analytics": "^1.5.0",
     "bcryptjs": "^3.0.2",
     "classnames": "^2.5.1",
     "connect-redis": "^9.0.0",
