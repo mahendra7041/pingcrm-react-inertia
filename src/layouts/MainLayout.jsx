@@ -3,10 +3,11 @@ import MainMenu from "@/components/MainMenu";
 import FlashMessages from "@/components/FlashMessages";
 import TopHeader from "@/components/TopHeader";
 import BottomHeader from "@/components/BottomHeader";
+import BaseLayout from "@/layouts/BaseLayout";
 
 export default function MainLayout({ title, children }) {
   return (
-    <>
+    <BaseLayout>
       <Head title={title} />
       <div className="flex flex-col">
         <div className="flex flex-col h-screen">
@@ -26,6 +27,6 @@ export default function MainLayout({ title, children }) {
           </div>
         </div>
       </div>
-    </>
+    </BaseLayout>
   );
 }
