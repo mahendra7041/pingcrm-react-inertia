@@ -1,5 +1,9 @@
 import { validate } from "../utils/validator.js";
 import prisma from "../services/prisma.service.js";
+import {
+  storeContactSchema,
+  updateContactSchema,
+} from "../validations/contact.validation.js";
 
 export async function index(req, res) {
   const page = Number(req.query.page) || 1;
@@ -76,18 +80,7 @@ export async function create(req, res, next) {
 }
 
 export async function store(req, res, next) {
-  const { organizationId, ...body } = validate(req.body, {
-    firstName: "string|required",
-    lastName: "string|required",
-    email: "email|required",
-    phone: "phone|required",
-    address: "string|required",
-    city: "string|required",
-    region: "string|required",
-    country: "string|required",
-    postalCode: "string|required",
-    organizationId: "string|required",
-  });
+  const { organizationId, ...body } = validate(req.body, storeContactSchema);
 
   await prisma.contact.create({
     data: {
@@ -130,18 +123,7 @@ export async function edit(req, res, next) {
 }
 
 export async function update(req, res, next) {
-  const body = validate(req.body, {
-    firstName: "string|required",
-    lastName: "string|required",
-    email: "email|required",
-    phone: "phone|required",
-    address: "string|required",
-    city: "string|required",
-    region: "string|required",
-    country: "string|required",
-    postalCode: "string|required",
-    organizationId: "string|required",
-  });
+  const body = validate(req.body, updateContactSchema);
 
   await prisma.contact.update({
     where: {

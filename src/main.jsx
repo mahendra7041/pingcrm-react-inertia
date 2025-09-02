@@ -1,8 +1,9 @@
 import { createInertiaApp } from "@inertiajs/react";
 import { hydrateRoot } from "react-dom/client";
+import BaseLayout from "@/layouts/BaseLayout";
 import "./index.css";
 
-const appName = import.meta.env.VITE_APP_NAME || "React Inertia App";
+const appName = import.meta.env.VITE_APP_NAME || "PingCRM";
 
 createInertiaApp({
   id: "root",
@@ -14,6 +15,9 @@ createInertiaApp({
     if (!page) {
       throw new Error(`Page not found: ${name}`);
     }
+
+    page.default.layout =
+      page.default.layout || ((page) => <BaseLayout children={page} />);
 
     return page;
   },

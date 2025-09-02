@@ -1,8 +1,8 @@
 import { Link } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import FilterBar from "@/Components/FilterBar";
-import Pagination from "@/Components/Pagination";
-import Table from "@/Components/Table";
+import MainLayout from "@/layouts/MainLayout";
+import FilterBar from "@/components/FilterBar";
+import Pagination from "@/components/Pagination";
+import Table from "@/components/Table";
 import { Trash2 } from "lucide-react";
 import { metaToLinks } from "@/utils";
 

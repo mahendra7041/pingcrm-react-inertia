@@ -1,9 +1,9 @@
 import { Link, useForm } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import LoadingButton from "@/Components/LoadingButton";
-import TextInput from "@/Components/TextInput";
-import SelectInput from "@/Components/SelectInput";
-import FieldGroup from "@/Components/FieldGroup";
+import MainLayout from "@/layouts/MainLayout";
+import LoadingButton from "@/components/LoadingButton";
+import TextInput from "@/components/TextInput";
+import SelectInput from "@/components/SelectInput";
+import FieldGroup from "@/components/FieldGroup";
 
 function Create() {
   const { data, setData, errors, post, processing } = useForm({

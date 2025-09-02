@@ -3,6 +3,10 @@ import { validate } from "../utils/validator.js";
 import { excludeFields } from "../utils/helper.js";
 import bcrypt from "bcryptjs";
 import ValidationException from "../exceptions/validation.exception.js";
+import {
+  createUserSchema,
+  updateUserSchema,
+} from "../validations/user.validation.js";
 
 export async function index(req, res) {
   const page = Number(req.query.page) || 1;
@@ -67,13 +71,7 @@ export async function create(req, res) {
 
 export async function store(req, res, next) {
   try {
-    const { password, ...body } = validate(req.body, {
-      firstName: "string|required",
-      lastName: "string|required",
-      email: "email|required",
-      password: "string|required",
-      owner: "boolean|required",
-    });
+    const { password, ...body } = validate(req.body, createUserSchema);
 
     const hashPassword = await bcrypt.hash(password, 10);
     if (req.file) {
@@ -119,13 +117,7 @@ export async function edit(req, res) {
 
 export async function update(req, res, next) {
   try {
-    const { password, ...body } = validate(req.body, {
-      firstName: "string|required",
-      lastName: "string|required",
-      email: "email|required",
-      password: "string|required",
-      owner: "boolean|required",
-    });
+    const { password, ...body } = validate(req.body, updateUserSchema);
 
     const hashPassword = await bcrypt.hash(password, 10);
     if (req.file) {

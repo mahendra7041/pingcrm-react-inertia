@@ -1,8 +1,9 @@
 import ReactDOMServer from "react-dom/server";
 import { createInertiaApp } from "@inertiajs/react";
 import "./index.css";
+import BaseLayout from "@/layouts/BaseLayout";
 
-const appName = import.meta.env.VITE_APP_NAME || "React Inertia App";
+const appName = import.meta.env.VITE_APP_NAME || "PingCRM";
 
 export default function render(page) {
   return createInertiaApp({
@@ -17,6 +18,9 @@ export default function render(page) {
       if (!page) {
         throw new Error(`Page not found: ${name}`);
       }
+
+      page.default.layout =
+        page.default.layout || ((page) => <BaseLayout children={page} />);
 
       return page;
     },
