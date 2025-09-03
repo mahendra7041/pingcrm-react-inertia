@@ -40,6 +40,7 @@ export default function LoginPage() {
                   type="email"
                   error={errors.email}
                   value={data.email}
+                  autoFocus={true}
                   onChange={(e) => setData("email", e.target.value)}
                 />
               </FieldGroup>

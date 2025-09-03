@@ -1,4 +1,4 @@
-import { Check, CircleX, TriangleAlert } from "lucide-react";
+import { Check, CircleX, Info, TriangleAlert } from "lucide-react";
 import CloseButton from "@/components/CloseButton";
 import classNames from "classnames";
 
@@ -17,6 +17,11 @@ const VARIANTS = {
     color: "yellow",
     bg: "bg-yellow-500 text-yellow-800",
     icon: <TriangleAlert size={20} />,
+  },
+  info: {
+    color: "blue",
+    bg: "bg-gray-200 text-blue-800",
+    icon: <Info size={20} />,
   },
 };
 

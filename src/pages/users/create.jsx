@@ -5,6 +5,7 @@ import TextInput from "@/components/TextInput";
 import SelectInput from "@/components/SelectInput";
 import FileInput from "@/components/FileInput";
 import FieldGroup from "@/components/FieldGroup";
+import Alert from "@/components/Alert";
 
 function Create() {
   const { data, setData, errors, post, processing } = useForm({
@@ -34,7 +35,12 @@ function Create() {
           <span className="font-medium text-indigo-600"> /</span> Create
         </h1>
       </div>
-
+      <Alert
+        variant="info"
+        message="Photo upload is currently disabled due to serverless deployment limits
+      (they don’t allow file uploads). But don’t worry, the feature itself
+      works perfectly. Trust me, it’s not broken 😅"
+      />
       <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
         <form onSubmit={handleSubmit}>
           <div className="grid gap-8 p-8 lg:grid-cols-2">
@@ -101,15 +107,17 @@ function Create() {
               />
             </FieldGroup>
 
-            <FieldGroup label="Photo" name="photo" error={errors.photo}>
-              <FileInput
-                name="photo"
-                accept="image/*"
-                error={errors.photo}
-                value={data.photo}
-                onChange={(photo) => setData("photo", photo)}
-              />
-            </FieldGroup>
+            <div className="pointer-events-none">
+              <FieldGroup label="Photo" name="photo" error={errors.photo}>
+                <FileInput
+                  name="photo"
+                  accept="image/*"
+                  error={errors.photo}
+                  value={data.photo}
+                  onChange={(photo) => setData("photo", photo)}
+                />
+              </FieldGroup>
+            </div>
           </div>
 
           <div className="flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200">
