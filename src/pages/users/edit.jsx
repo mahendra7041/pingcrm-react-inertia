@@ -7,6 +7,7 @@ import SelectInput from "@/components/SelectInput";
 import FileInput from "@/components/FileInput";
 import TrashedMessage from "@/components/TrashedMessage";
 import FieldGroup from "@/components/FieldGroup";
+import Alert from "@/components/Alert";
 
 function Edit({ user }) {
   const { data, setData, errors, put, processing } = useForm({
@@ -52,7 +53,12 @@ function Edit({ user }) {
           <img className="block w-8 h-8 ml-4 rounded-full" src={user.photo} />
         )}
       </div>
-
+      <Alert
+        variant="info"
+        message="Photo upload is currently disabled due to serverless deployment limits
+      (they don’t allow file uploads). But don’t worry, the feature itself
+      works perfectly. Trust me, it’s not broken 😅"
+      />
       {user.deletedAt && (
         <TrashedMessage
           message="This user has been deleted."
@@ -126,15 +132,17 @@ function Edit({ user }) {
               />
             </FieldGroup>
 
-            <FieldGroup label="Photo" name="photo" error={errors.photo}>
-              <FileInput
-                name="photo"
-                accept="image/*"
-                error={errors.photo}
-                value={data.photo}
-                onChange={(photo) => setData("photo", photo)}
-              />
-            </FieldGroup>
+            <div className="pointer-events-none">
+              <FieldGroup label="Photo" name="photo" error={errors.photo}>
+                <FileInput
+                  name="photo"
+                  accept="image/*"
+                  error={errors.photo}
+                  value={data.photo}
+                  onChange={(photo) => setData("photo", photo)}
+                />
+              </FieldGroup>
+            </div>
           </div>
 
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
