@@ -23,7 +23,10 @@ async function bootstrap() {
 
   if (process.env.NODE_ENV === "production") {
     app.use(
-      express.static(path.resolve(__dirname, "build/client"), { index: false })
+      express.static(path.resolve(__dirname, "build/client"), {
+        index: false,
+        maxAge: "1d",
+      })
     );
   }
 
