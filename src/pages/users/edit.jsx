@@ -1,4 +1,4 @@
-import { Link, useForm, router } from "@inertiajs/react";
+import { Link, useForm, router, Form } from "@inertiajs/react";
 import MainLayout from "@/layouts/MainLayout";
 import DeleteButton from "@/components/DeleteButton";
 import LoadingButton from "@/components/LoadingButton";
@@ -10,20 +10,6 @@ import FieldGroup from "@/components/FieldGroup";
 import Alert from "@/components/Alert";
 
 function Edit({ user }) {
-  const { data, setData, errors, put, processing } = useForm({
-    firstName: user.firstName || "",
-    lastName: user.lastName || "",
-    email: user.email || "",
-    password: "",
-    owner: user.owner ? "1" : "0",
-    photo: "",
-  });
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    put(`/users/${user.id}`);
-  }
-
   function destroy() {
     if (confirm("Are you sure you want to delete this user?")) {
       router.delete(`/users/${user.id}`);
@@ -47,7 +33,7 @@ function Edit({ user }) {
             Users
           </Link>
           <span className="mx-2 font-medium text-indigo-600">/</span>
-          {data.firstName} {data.lastName}
+          {user.firstName} {user.lastName}
         </h1>
         {user.photo && (
           <img className="block w-8 h-8 ml-4 rounded-full" src={user.photo} />
@@ -67,97 +53,88 @@ function Edit({ user }) {
       )}
 
       <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
-        <form onSubmit={handleSubmit}>
-          <div className="grid gap-8 p-8 lg:grid-cols-2">
-            <FieldGroup
-              label="First Name"
-              name="firstName"
-              error={errors.firstName}
-            >
-              <TextInput
-                name="firstName"
-                error={errors.firstName}
-                value={data.firstName}
-                onChange={(e) => setData("firstName", e.target.value)}
-              />
-            </FieldGroup>
-
-            <FieldGroup
-              label="Last Name"
-              name="lastName"
-              error={errors.lastName}
-            >
-              <TextInput
-                name="lastName"
-                error={errors.lastName}
-                value={data.lastName}
-                onChange={(e) => setData("lastName", e.target.value)}
-              />
-            </FieldGroup>
-
-            <FieldGroup label="Email" name="email" error={errors.email}>
-              <TextInput
-                name="email"
-                type="email"
-                error={errors.email}
-                value={data.email}
-                onChange={(e) => setData("email", e.target.value)}
-              />
-            </FieldGroup>
-
-            <FieldGroup
-              label="Password"
-              name="password"
-              error={errors.password}
-            >
-              <TextInput
-                name="password"
-                type="password"
-                error={errors.password}
-                value={data.password}
-                onChange={(e) => setData("password", e.target.value)}
-              />
-            </FieldGroup>
-
-            <FieldGroup label="Owner" name="owner" error={errors.owner}>
-              <SelectInput
-                name="owner"
-                error={errors.owner}
-                value={data.owner}
-                onChange={(e) => setData("owner", e.target.value)}
-                options={[
-                  { value: "1", label: "Yes" },
-                  { value: "0", label: "No" },
-                ]}
-              />
-            </FieldGroup>
-
-            <div className="pointer-events-none">
-              <FieldGroup label="Photo" name="photo" error={errors.photo}>
-                <FileInput
-                  name="photo"
-                  accept="image/*"
-                  error={errors.photo}
-                  value={data.photo}
-                  onChange={(photo) => setData("photo", photo)}
-                />
-              </FieldGroup>
-            </div>
-          </div>
-
-          <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            {!user.deletedAt && (
-              <DeleteButton onDelete={destroy}>Delete User</DeleteButton>
-            )}
-            <LoadingButton
-              loading={processing}
-              type="submit"
-              className="ml-auto btn-indigo"
-            >
-              Update User
-            </LoadingButton>
-          </div>
-        </form>
+        <Form action={`/users/${user.id}`} method="put">
+          {({ errors, processing }) => (
+            <>
+              <div className="grid gap-8 p-8 lg:grid-cols-2">
+                <FieldGroup
+                  label="First Name"
+                  name="firstName"
+                  error={errors.firstName}
+                >
+                  <TextInput
+                    name="firstName"
+                    error={errors.firstName}
+                    defaultValue={user.firstName}
+                  />
+                </FieldGroup>
+                <FieldGroup
+                  label="Last Name"
+                  name="lastName"
+                  error={errors.lastName}
+                >
+                  <TextInput
+                    name="lastName"
+                    error={errors.lastName}
+                    defaultValue={user.lastName}
+                  />
+                </FieldGroup>
+                <FieldGroup label="Email" name="email" error={errors.email}>
+                  <TextInput
+                    name="email"
+                    type="email"
+                    error={errors.email}
+                    defaultValue={user.email}
+                  />
+                </FieldGroup>
+                <FieldGroup
+                  label="Password"
+                  name="password"
+                  error={errors.password}
+                >
+                  <TextInput
+                    name="password"
+                    type="password"
+                    error={errors.password}
+                    defaultValue={user.password}
+                  />
+                </FieldGroup>
+                <FieldGroup label="Owner" name="owner" error={errors.owner}>
+                  <SelectInput
+                    name="owner"
+                    error={errors.owner}
+                    defaultValue={user.owner}
+                    options={[
+                      { value: "1", label: "Yes" },
+                      { value: "0", label: "No" },
+                    ]}
+                  />
+                </FieldGroup>
+                <div className="pointer-events-none">
+                  <FieldGroup label="Photo" name="photo" error={errors.photo}>
+                    <FileInput
+                      name="photo"
+                      accept="image/*"
+                      error={errors.photo}
+                    />
+                  </FieldGroup>
+                </div>
+              </div>
+              <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
+                {!user.deletedAt && (
+                  <DeleteButton onDelete={destroy}>Delete User</DeleteButton>
+                )}
+                <LoadingButton
+                  loading={processing}
+                  type="submit"
+                  className="ml-auto btn-indigo"
+                >
+                  Update User
+                </LoadingButton>
+              </div>
+            </>
+          )}
+        </Form>
       </div>
     </div>
   );

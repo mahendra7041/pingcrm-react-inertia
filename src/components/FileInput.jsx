@@ -34,6 +34,7 @@ export default function FileInput({ name, error, onChange }) {
     <div className={wrapperClass}>
       <input
         id={name}
+        name={name}
         ref={fileInput}
         type="file"
         className="hidden"
