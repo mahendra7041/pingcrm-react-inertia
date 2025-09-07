@@ -18,6 +18,7 @@ export default function MainMenu(props) {
       <MainMenuItem
         text="Organizations"
         link="/organizations"
+        prefetch={true}
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,6 +37,7 @@ export default function MainMenu(props) {
       <MainMenuItem
         text="Contacts"
         link="/contacts"
+        prefetch={true}
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"

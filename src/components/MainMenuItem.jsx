@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 const normalize = (str) => str.replace(/^\/+/, "");
 
-export default function MainMenuItem({ text, link, icon }) {
+export default function MainMenuItem({ text, link, icon, ...props }) {
   const url = usePage().url;
   const isActive =
     link === "/" ? url === "/" : normalize(url).startsWith(normalize(link));
@@ -16,6 +16,7 @@ export default function MainMenuItem({ text, link, icon }) {
           "group flex items-center py-3 fill-white text-white",
           { "!fill-indigo-400 !text-indigo-300": isActive }
         )}
+        {...props}
       >
         <div className="mr-2 w-4 h-4 group-hover:fill-indigo-400">{icon}</div>
         <div className="group-hover:text-indigo-300">{text}</div>
