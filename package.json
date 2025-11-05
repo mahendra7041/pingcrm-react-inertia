@@ -24,7 +24,7 @@
     "classnames": "^2.5.1",
     "connect-redis": "^9.0.0",
     "express": "^5.1.0",
-    "express-inertia": "^1.6.5",
+    "express-inertia": "github:mahendra7041/express-inertia#dev",
     "express-session": "^1.18.2",
     "fast-glob": "^3.3.3",
     "lodash": "^4.17.21",
